@@ -29,7 +29,7 @@ typedef eMenuType tMenuType;
 struct stpalabra {
 	char ingles[MAX_CAD];
 	char espanyol[MAX_CAD];
-};
+}; 
 
 // Tipo de negocio para gestión de la estructura base de diccionario
 typedef stpalabra tPalabra;

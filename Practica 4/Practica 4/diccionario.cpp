@@ -207,7 +207,7 @@ tPalabra LeerNuevoElemento() {
 						else tpResultado.ingles[iTam] = NULL;
 
 						// Mover el cursor hacia atrás
-						printf("%c",cKey);
+						printf("%c",cKey); 
 					}
 
 					break;
