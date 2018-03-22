@@ -15,24 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="diccionario.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="diccionario.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Practica 4.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="diccionario.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
