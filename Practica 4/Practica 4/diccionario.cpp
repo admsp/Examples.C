@@ -44,8 +44,8 @@ int anyadir_palabra(tPalabra Diccionario[], int numpal) {
 						
 			// Validar elementos de estructura
 			if ((tElemDicc.espanyol != NULL) && (tElemDicc.ingles != NULL)) {
-				numpal++;
 				Diccionario[numpal] = tElemDicc;
+				numpal++;
 			}
 
 			// Asignar el resultado con el nuevo valor de tamaño del Diccionario 
@@ -106,7 +106,8 @@ tPalabra LeerNuevoElemento() {
 					if (iTam < (MAX_CAD - 1)) {
 
 						// Introducir el caracter en el array correspondiente
-						tpResultado.espanyol[iTam] = EOL;
+						if (iBucle == 0) tpResultado.espanyol[iTam] = EOL;
+						else tpResultado.ingles[iTam] = EOL;
 					}
 					
 					// Limpieza de pantalla
@@ -130,8 +131,11 @@ tPalabra LeerNuevoElemento() {
 					// Limpieza de pantalla
 					system("cls");
 					
-					// Limpiar el array correspondiente 
-					for (int iElem = 0; iElem < iTam; iElem++) tpResultado.espanyol[iElem] = NULL;
+					// Limpiar todos los arrays
+					for (int iElem = 0; iElem < iTam; iElem++) { 
+						tpResultado.espanyol[iElem] = NULL;
+						tpResultado.ingles[iElem] = NULL;
+					}
 					
 					// Establecemos el tamaño a 0
 					iTam = 0;
@@ -158,7 +162,8 @@ tPalabra LeerNuevoElemento() {
 						if (iTam < (MAX_CAD - 1)) {
 
 							// Introducir el caracter en el array correspondiente
-							tpResultado.espanyol[iTam] = cKey;
+							if (iBucle == 0) tpResultado.espanyol[iTam] = cKey;
+							else tpResultado.ingles[iTam] = cKey;
 
 							// Incrementamos el tamaño del array (num elem ocupados dentro del mismo)
 							iTam++;
@@ -174,7 +179,8 @@ tPalabra LeerNuevoElemento() {
 							cKey = EOL;
 
 							// Introducir el caracter en el array correspondiente
-							tpResultado.espanyol[iTam] = cKey;
+							if (iBucle == 0) tpResultado.espanyol[iTam] = cKey;
+							else tpResultado.ingles[iTam] = cKey;
 
 							// Limpieza de pantalla
 							system("cls");
@@ -182,7 +188,7 @@ tPalabra LeerNuevoElemento() {
 							// Cargar mensaje
 							printf("==============================================================================\n");
 							printf("  Se ha llegado al número máximo de caracteres disponibles.                   \n");
-							printf("  Se ha introducido la siguiente palabra: %d                                  \n", tpResultado.espanyol);
+							printf("  Se ha introducido la siguiente palabra: %d                                  \n", &tpResultado.espanyol);
 							printf("  Pulse una tecla para continuar...                                           \n");
 							printf("==============================================================================\n");
 
