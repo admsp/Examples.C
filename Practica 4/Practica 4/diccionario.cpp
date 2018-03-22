@@ -96,7 +96,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 		break;
 	case ANYADIRPALABRA_SALIDA_CANCELAR: 		
 		printf("==============================================================================\n");
-		printf("= No se ha introducido ninguna palabra. Se retorna al menú principal         =\n");
+		printf("= No se ha introducido ninguna palabra. Se retorna al menu principal         =\n");
 		printf("= Pulse una tecla para continuar...                                          =\n");
 		printf("==============================================================================\n");
 
@@ -129,7 +129,8 @@ int anyadir_palabra(tPalabra Diccionario[], int numpal) {
 			tElemDicc = LeerNuevoElemento();
 						
 			// Validar elementos de estructura
-			if ((tElemDicc.espanyol != NULL) && (tElemDicc.ingles != NULL)) {
+			if ((tElemDicc.espanyol != NULL && strlen(tElemDicc.espanyol) > 0) && 
+				(tElemDicc.ingles != NULL && strlen(tElemDicc.ingles) > 0)) {
 				Diccionario[numpal] = tElemDicc;
 				numpal++;
 			}
@@ -155,8 +156,11 @@ tPalabra LeerNuevoElemento() {
 	// Declaración e Inicialización de Variables
 	tPalabra tpResultado;
 	int iTam;
-	short iBucle = 0; /* 0 = Español && 1=Ingles */
+	short iBucle;
 	char cKey;
+
+	// Inicialización de variables
+	iBucle = 0; /* 0 = Español && 1=Ingles */
 
 	// Presentación de opciones de menu
 	do {
@@ -222,13 +226,15 @@ tPalabra LeerNuevoElemento() {
 					// Establecemos el tamaño a 0
 					iTam = 0;
 
+					// Introducir el caracter EOL en ambos arrays
+					tpResultado.espanyol[iTam] = EOL;
+					tpResultado.ingles[iTam] = EOL;
+					
 					// Cargar mensaje
 					MenuManager(ANYADIRPALABRA_SALIDA_CANCELAR, nullptr);
 					
 					// Lectura de teclado: 
 					_getch();
-
-					// TODO: Gestionar la salida al menú principal
 
 					break;
 				default:	
