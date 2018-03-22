@@ -1,0 +1,7 @@
+﻿  Practica 1.cpp
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 1\practica 1\practica 1.cpp(64): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note: vea la declaración de 'scanf'
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 1\practica 1\practica 1.cpp(101): warning C4473: "scanf_s": no se pasaron suficientes argumentos para la cadena de formato
+  c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 1\practica 1\practica 1.cpp(101): note: los marcadores de posición y sus parámetros esperan 2 argumentos variádicos, pero se proporcionaron 1
+  c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 1\practica 1\practica 1.cpp(101): note: el argumento variádico 2 que falta es requerido por la cadena de formato '%c'
+  c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 1\practica 1\practica 1.cpp(101): note: este argumento se utiliza como un tamaño de búfer

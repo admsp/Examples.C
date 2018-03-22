@@ -1,0 +1,9 @@
+﻿  stdafx.cpp
+  diccionario.cpp
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 4\practica 4\diccionario.cpp(117): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'char *'
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 4\practica 4\diccionario.cpp(117): warning C4313: 'printf': '%d' de la cadena de formato origina conflictos con el argumento 1 del tipo 'char *'
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 4\practica 4\diccionario.cpp(185): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'char *'
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 4\practica 4\diccionario.cpp(185): warning C4313: 'printf': '%d' de la cadena de formato origina conflictos con el argumento 1 del tipo 'char *'
+  Practica 4.cpp
+  Generando código...
+  Practica 4.vcxproj -> C:\Users\amdiaz\Documents\Codigo\C++\Projects\Practicas Toño\Practica 4\Practica 4\x64\Debug\Practica 4.exe
