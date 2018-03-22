@@ -20,8 +20,94 @@ tPalabra LeerNuevoElemento();
 
 #pragma region Métodos y Funciones de gestión de Diccionario.
 
+// Nombre: MenuManager
+// Descripcion: Metodo de negocio para la gestión de Menús de Diccionario
+void MenuManager(tMenuType pType, char pString[]) {
+
+	// Limpieza de pantalla
+	system("cls");
+
+	// Validar tipo de Menu a mostrar
+	switch (pType) {
+	case PRINCIPAL:
+		// Mostrar menu de opciones
+		printf("==============================================================================\n");
+		printf("= Elija una de las siguientes opciones:                                      =\n");
+		printf("=                                                                            =\n");
+		printf("=  1. Anyadir palabra                                                        =\n");
+		printf("=  2. Traducir palabra                                                       =\n");
+		printf("=  3. Mostrar diccionario                                                    =\n");
+		printf("=  4. Salir                                                                  =\n");
+		printf("=                                                                            =\n");
+		printf("= Pulse una opcion o Esc para salir...                                       =\n");
+		printf("==============================================================================\n");
+
+		break;
+	case PRINCIPAL_ERROR:
+		// Cargar mensaje
+		printf("==============================================================================\n");
+		printf("= La opción seleccionada es incorrecta. Pulse una tecla para continuar...    =\n");
+		printf("==============================================================================\n");
+
+		break;
+	case PRINCIPAL_DESPEDIDA:
+		// Cargar mensaje
+		printf("==============================================================================\n");
+		printf("= Gracias por usar nuestra aplicacion. Vuelva pronto...                      =\n");
+		printf("= Pulse una tecla para salir...                                             =\n");
+		printf("==============================================================================\n");
+		break;
+	case ANYADIRPALABRA_ESPAÑOL: 
+		printf("==============================================================================\n");
+		printf(" Introduzca la nueva palabra en el Diccionario:                               \n");
+		printf("                                                                              \n");
+		printf("  Pulse Intro para Introducir opcion o Esc para salir...                      \n");
+		printf("  Pulse para salir...                                                         \n");
+		printf("==============================================================================\n");
+		printf("                                                                              \n");
+		printf("  Palabra a traducir en Espanyol: \n");
+		
+		break;
+	case ANYADIRPALABRA_INGLES: 
+		printf("==============================================================================\n");
+		printf(" Introduzca la nueva palabra en el Diccionario:                               \n");
+		printf("                                                                              \n");
+		printf(" Pulse Intro para Introducir opcion o Esc para salir...                       \n");
+		printf(" Pulse para salir...                                                          \n");
+		printf("==============================================================================\n");
+		printf("                                                                              \n");
+		printf("Traducción de la palabra en Ingles: \n");
+
+		break;
+	case ANYADIRPALABRA_SALIDA_MOSTRAR: 
+		printf("==============================================================================\n");
+		printf("  Se ha introducido la siguiente palabra: %s                                  \n", pString);
+		printf("  Pulse una tecla para continuar...                                           \n");
+		printf("==============================================================================\n");
+		
+		break;
+	case ANYADIRPALABRA_SALIDA_MAXCAR_MOSTRAR: 
+		printf("==============================================================================\n");
+		printf("  Se ha llegado al número máximo de caracteres disponibles.                   \n");
+		printf("  Se ha introducido la siguiente palabra: %s                                  \n", pString);
+		printf("  Pulse una tecla para continuar...                                           \n");
+		printf("==============================================================================\n");
+
+		break;
+	case ANYADIRPALABRA_SALIDA_CANCELAR: 		
+		printf("==============================================================================\n");
+		printf("= No se ha introducido ninguna palabra. Se retorna al menú principal         =\n");
+		printf("= Pulse una tecla para continuar...                                          =\n");
+		printf("==============================================================================\n");
+
+		break;
+
+	default: /*No tiene que ocurrir, incluir una gestión de excepciones*/ break;
+	}
+}
+
 // Nombre: anyadir_palabra
-// Descripcion: 
+// Descripcion: Metodo de negocio para la gestión de inserciones en el diccionario 
 int anyadir_palabra(tPalabra Diccionario[], int numpal) {
 
 	// Declaración de variables de trabajo
@@ -78,20 +164,8 @@ tPalabra LeerNuevoElemento() {
 		iTam = 0;
 		cKey = NULL;
 
-		// Limpieza de pantalla
-		system("cls");
-
-		// Mostrar menu de opciones
-		printf("==============================================================================\n");
-		printf(" Introduzca la nueva palabra en el Diccionario:                               \n");
-		printf("                                                                              \n");
-		printf("  Pulse Intro para Introducir opcion o Esc para salir...                      \n");
-		printf("  Pulse para salir...                                                         \n");
-		printf("                                                                              \n");
-		
-		// Validar momento del bucle (Español o Inglés): 
-		if (iBucle == 0) printf("  Palabra a traducir en Espanyol: \n");
-		else printf("  Palabra a traducir en Ingles: \n");
+		// Validar momento del bucle (Español o Inglés) para definir el Menú: 
+		iBucle == 0 ? MenuManager(ANYADIRPALABRA_ESPAÑOL, nullptr): MenuManager(ANYADIRPALABRA_INGLES, nullptr);
 		
 		// Proceso de Lectura, Validación y Almacenamiento desde Pantalla
 		do {  
@@ -104,20 +178,15 @@ tPalabra LeerNuevoElemento() {
 
 					// Validamos el tamaño actual 
 					if (iTam < (MAX_CAD - 1)) {
-
+						
 						// Introducir el caracter en el array correspondiente
 						if (iBucle == 0) tpResultado.espanyol[iTam] = EOL;
 						else tpResultado.ingles[iTam] = EOL;
 					}
 					
-					// Limpieza de pantalla
-					system("cls");
-						
-					// Cargar mensaje y Mosrar dato
-					printf("==============================================================================\n");
-					printf("  Se ha introducido la siguiente palabra: %d                                  \n", tpResultado.espanyol);
-					printf("  Pulse una tecla para continuar...                                           \n");
-					printf("==============================================================================\n");
+					// Cargar mensaje y Mosrar datos
+					MenuManager(ANYADIRPALABRA_SALIDA_MOSTRAR, 
+								iBucle == 0 ? tpResultado.espanyol : tpResultado.ingles);
 
 					// Lectura de teclado: 
 					_getch();
@@ -126,11 +195,24 @@ tPalabra LeerNuevoElemento() {
 					iBucle++;
 
 					break;
-				case ESC:
-
-					// Limpieza de pantalla
-					system("cls");
+				case DEL:
 					
+					// Validar que haya algún caracter introducido
+					if (iTam > 0) { 
+						// Retroceder un caracter
+						iTam--;
+
+						// Borrado de un caracter 
+						if (iBucle == 0) tpResultado.espanyol[iTam] = NULL;
+						else tpResultado.ingles[iTam] = NULL;
+
+						// Mover el cursor hacia atrás
+						printf("%c",cKey);
+					}
+
+					break;
+				case ESC:
+										
 					// Limpiar todos los arrays
 					for (int iElem = 0; iElem < iTam; iElem++) { 
 						tpResultado.espanyol[iElem] = NULL;
@@ -141,11 +223,8 @@ tPalabra LeerNuevoElemento() {
 					iTam = 0;
 
 					// Cargar mensaje
-					printf("==============================================================================\n");
-					printf("= No se ha introducido ninguna palabra. Se retorna al menú principal         =\n");
-					printf("  Pulse una tecla para continuar...                                           \n");
-					printf("==============================================================================\n");
-
+					MenuManager(ANYADIRPALABRA_SALIDA_CANCELAR, nullptr);
+					
 					// Lectura de teclado: 
 					_getch();
 
@@ -153,7 +232,6 @@ tPalabra LeerNuevoElemento() {
 
 					break;
 				default:	
-					
 					// Validar que caracteres se han introducido 
 					if ((cKey >= 'A' || cKey <= 'Z') || (cKey >= 'a' || cKey <= 'z')) {
 
@@ -182,15 +260,9 @@ tPalabra LeerNuevoElemento() {
 							if (iBucle == 0) tpResultado.espanyol[iTam] = cKey;
 							else tpResultado.ingles[iTam] = cKey;
 
-							// Limpieza de pantalla
-							system("cls");
-
-							// Cargar mensaje
-							printf("==============================================================================\n");
-							printf("  Se ha llegado al número máximo de caracteres disponibles.                   \n");
-							printf("  Se ha introducido la siguiente palabra: %d                                  \n", &tpResultado.espanyol);
-							printf("  Pulse una tecla para continuar...                                           \n");
-							printf("==============================================================================\n");
+							// Cargar mensaje y Mosrar datos
+							MenuManager(ANYADIRPALABRA_SALIDA_MOSTRAR,
+								iBucle == 0 ? tpResultado.espanyol : tpResultado.ingles);
 
 							// Lectura de teclado: 
 							_getch();
