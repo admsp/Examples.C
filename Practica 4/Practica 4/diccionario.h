@@ -4,6 +4,17 @@
 // Librería global con las librerías de negocio de la aplicación de diccionario
 // =============================================================================================
 
+#pragma region Area de declaración de variables/literales/constantes globales
+
+// Teclas de aplicación
+#define ENTER			13
+#define ESP				32
+#define ESC				27
+#define EOL	            '\0'
+#define DEL				8
+
+#pragma endregion 
+
 #pragma region Modelo de datos específico
 
 // Constantes de tamaño de cadena de palabra
@@ -20,6 +31,7 @@ enum eMenuType {
 	ANYADIRPALABRA_SALIDA_MOSTRAR,
 	ANYADIRPALABRA_SALIDA_MAXCAR_MOSTRAR,
 	ANYADIRPALABRA_SALIDA_CANCELAR,
+	TRADUCIR,
 };
 
 // Tipo de negocio para el tratamiento de tipos de menús
@@ -47,5 +59,9 @@ void MenuManager(tMenuType pType, char pString[]);
 // Nombre: anyadir_palabra
 // Descripcion: Metodo de negocio para la gestión de inserciones en el diccionario 
 int anyadir_palabra(tPalabra Diccionario[], int numpal);
+
+// Nombre: traducir_palabra
+// Descripcion: Metodo de negocio para la gestión de traducciones en el diccionario 
+void traducir_palabra(tPalabra Dicc[], int num);
 
 #pragma endregion 

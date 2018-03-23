@@ -15,6 +15,8 @@
 #pragma region Declaración de Métodos y Funciones Auxiliares de gestión de Diccionario.
 
 tPalabra LeerNuevoElemento();
+int LeerPalabra(char strEntrada[], int iTamMax);
+int BuscarElemento(tPalabra Dicc[], int tamDicc, char Palabra[]);
 
 #pragma endregion 
 
@@ -101,7 +103,9 @@ void MenuManager(tMenuType pType, char pString[]) {
 		printf("==============================================================================\n");
 
 		break;
-
+	case TRADUCIR:
+		// TODO: Mensaje a introducir en la traducción
+		break;
 	default: /*No tiene que ocurrir, incluir una gestión de excepciones*/ break;
 	}
 }
@@ -147,10 +151,22 @@ int anyadir_palabra(tPalabra Diccionario[], int numpal) {
 	return iResult;
 }
 
+// Nombre: traducir_palabra
+// Descripcion: Metodo de negocio para la gestión de traducciones en el diccionario 
+void traducir_palabra(tPalabra Dicc[], int num) {
+	
+	// Modo prueba funciones auxiliares
+	char Palabra[MAX_CAD];
+	int prueba = LeerPalabra(Palabra, MAX_CAD);
+
+}
+
 #pragma endregion 
 
 #pragma region Implementación de Métodos y Funciones Auxiliares de gestión de Diccionario.
 
+// Nombre: LeerNuevoElemento
+// Descripcion: Metodo de negocio para la gestión de lectura de consola para un nuevo Elemento tPalabra
 tPalabra LeerNuevoElemento() {
 
 	// Declaración e Inicialización de Variables
@@ -211,7 +227,9 @@ tPalabra LeerNuevoElemento() {
 						else tpResultado.ingles[iTam] = NULL;
 
 						// Mover el cursor hacia atrás
-						printf("%c",cKey); 
+						printf("%c", cKey); 
+						printf("%c", ESP);
+						printf("%c", cKey);
 					}
 
 					break;
@@ -293,6 +311,134 @@ tPalabra LeerNuevoElemento() {
 			 
 	// Retorno de Datos
 	return tpResultado;
+}
+
+// Nombre: LeerPalabra
+// Descripcion: Metodo de negocio para la lectura de consola 
+// Salida: Tamaño de la cadena leida. En caso de que se reciba ESC se devuelve -1
+int LeerPalabra(char strEntrada[], int iTamMax) {
+
+	// Declaración e Inicialización de Variables
+	int iReturn, iTam;
+	char cKey;
+	
+	// Inicialización de variables
+	iReturn = -1;
+	iTam = 0;
+	cKey = NULL;
+
+	// Proceso de Lectura, Validación y Almacenamiento desde Pantalla
+	do {
+		// Leer de pantalla
+		cKey = _getch();
+
+		// Capturar la opción seleccionada y Validar caracter
+		switch (cKey) {
+			case ENTER:
+				// Validamos el tamaño actual 
+				if (iTam < (iTamMax - 1)) strEntrada[iTam] = EOL;
+				
+				// Establecemos el resultado de salida (Tamaño)
+				iReturn = iTam;
+
+				break;
+			case DEL:
+				// Validar que haya algún caracter introducido
+				if (iTam > 0) {
+					// Retroceder un caracter
+					iTam--;
+
+					// Borrado de un caracter 
+					strEntrada[iTam] = NULL;
+
+					// Mover el cursor hacia atrás
+					printf("%c", cKey);
+					printf("%c", ESP);
+					printf("%c", cKey);
+				}
+
+				break;
+			case ESC:
+				// Limpiar todos los arrays
+				for (int iElem = 0; iElem < iTam; iElem++) strEntrada[iElem] = NULL;
+
+				// Establecemos el tamaño a 0
+				iTam = 0;
+
+				// Introducir el caracter EOL en ambos arrays
+				strEntrada[iTam] = EOL;
+				
+				// Establecemos la salida a -1 (Solicitada por el usuario)
+				iReturn = -1;
+
+				break;
+			default:
+				// Validar que caracteres se han introducido 
+				if ((cKey >= 'A' || cKey <= 'Z') || (cKey >= 'a' || cKey <= 'z')) {
+
+					// Validamos que no hayamos llegado al fin del array
+					/* Nota: Se puede usar indistintamente iTam y strlen(tpResultado.idioma que corresponda) */
+					if (iTam < (iTamMax - 1)) {
+
+						// Introducir el caracter en el array correspondiente
+						strEntrada[iTam] = cKey;
+
+						// Incrementamos el tamaño del array (num elem ocupados dentro del mismo)
+						iTam++;
+
+						// Mostrar elemento en pantalla
+						printf("%c", cKey);
+					}
+
+					// Validamos que tras la última inserción se haya llegado al final
+					if (iTam == (iTamMax - 1)) {
+
+						// Establecer el valor de la variable de entrada a fin de linea
+						cKey = EOL;
+
+						// Introducir el caracter en el array correspondiente
+						strEntrada[iTam] = cKey; 
+
+						// Establecemos el resultado de salida (Tamaño)
+						iReturn = iTam;
+					}
+				}
+
+				break;
+		}
+
+	} while ((cKey != ESC) && (cKey != ENTER) && (cKey != EOL));
+
+	// Retorno Standard
+	return iReturn;
+}
+
+// Nombre: Buscar Elemento
+// Descripcion: Metodo de negocio para la Busqueda de una palabra en el diccionario
+// Parametros: 
+//			Dicc: Vector de tPalabra con el Diccionario
+//			tamDicc: Tamaño del Vector Diccionario
+//			Palabra: Vector con la Palabra a buscar
+// Salida: posición del elemento en el diccionario. Si no encontrado -1
+int BuscarElemento(tPalabra Dicc[], int tamDicc, char Palabra[]) {
+	
+	// Declaración e inicialización de Variables
+	int iResult = -1; // --> No encontrado por defecto
+
+	// Proceso de búsqueda
+	// Nota: Pese a que de forma dogmatica se utilice un metodo while para el proceso de forma 
+	//		 Standard se utiliza un for con un break de ruptura. 
+	for (int pos = 0; pos < tamDicc; pos++) {
+		
+		// Validación de cadenas
+		if (strcmp(Dicc[pos].espanyol, Palabra)) {
+			iResult = pos;
+			break;
+		}
+	}
+
+	// Retorno de datos
+	return iResult;
 }
 
 #pragma endregion 
