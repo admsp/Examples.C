@@ -128,6 +128,13 @@ void MenuManager(tMenuType pType, char pString[]) {
 		printf("==============================================================================\n");
 
 		break;
+	case TRADUCIR_SALIDA_PALABRA_VACIA:
+		printf("==============================================================================\n");
+		printf("= No se ha introducido ninguna palabra. Se retorna al menu principal.        =\n");
+		printf("= Pulse una tecla para continuar...                                          =\n");
+		printf("==============================================================================\n");
+
+		break;
 	case TRADUCIR_SALIDA_CANCELAR:
 		printf("==============================================================================\n");
 		printf("= Accion cancelada por el usuario. Se retorna al menu principal.             =\n");
@@ -223,8 +230,10 @@ void traducir_palabra(tPalabra Dicc[], int num) {
 	// Validar entrada recibida
 	if (iResultEntrada == -1) 
 		// Se ha recibido un ESC, mostrar mensaje de cancelación
-		MenuManager(TRADUCIR_BUSCAR, nullptr); 
-	
+		MenuManager(TRADUCIR_SALIDA_CANCELAR, nullptr); 
+	else if (iResultEntrada == 0)
+		// No se ha introducido ninguna palabra, mostrar mensaje de retorno
+		MenuManager(TRADUCIR_SALIDA_PALABRA_VACIA, nullptr);
 	else { // Se ha leido una palabra
 	
 		// Se busca la palabra en el diccionario
@@ -291,14 +300,11 @@ tPalabra LeerNuevoElemento() {
 			// Capturar la opción seleccionada y Validar caracter
 			switch (cKey) {
 				case ENTER:
-
 					// Validamos el tamaño actual 
-					if (iTam < (MAX_CAD - 1)) {
-						
+					if (iTam < (MAX_CAD - 1)) 
 						// Introducir el caracter en el array correspondiente
 						if (iBucle == 0) tpResultado.espanyol[iTam] = EOL;
 						else tpResultado.ingles[iTam] = EOL;
-					}
 					
 					// Cargar mensaje y Mosrar datos
 					MenuManager(ANYADIRPALABRA_SALIDA_MOSTRAR, 
@@ -332,17 +338,14 @@ tPalabra LeerNuevoElemento() {
 				case ESC:
 										
 					// Limpiar todos los arrays
-					for (int iElem = 0; iElem < iTam; iElem++) { 
-						tpResultado.espanyol[iElem] = NULL;
-						tpResultado.ingles[iElem] = NULL;
-					}
+					for (int iElem = 0; iElem < iTam; iElem++) 
+						tpResultado.espanyol[iElem] = tpResultado.ingles[iElem] = NULL;
 					
 					// Establecemos el tamaño a 0
 					iTam = 0;
 
 					// Introducir el caracter EOL en ambos arrays
-					tpResultado.espanyol[iTam] = EOL;
-					tpResultado.ingles[iTam] = EOL;
+					tpResultado.espanyol[iTam] = tpResultado.ingles[iTam] = EOL;
 					
 					// Cargar mensaje
 					MenuManager(ANYADIRPALABRA_SALIDA_CANCELAR, nullptr);
@@ -358,10 +361,8 @@ tPalabra LeerNuevoElemento() {
 						// Validamos que no hayamos llegado al fin del array
 						/* Nota: Se puede usar indistintamente iTam y strlen(tpResultado.idioma que corresponda) */
 						if (iTam < (MAX_CAD - 1)) {
-
 							// Introducir el caracter en el array correspondiente
-							if (iBucle == 0) tpResultado.espanyol[iTam] = cKey;
-							else tpResultado.ingles[iTam] = cKey;
+							(iBucle == 0) ? tpResultado.espanyol[iTam] = cKey : tpResultado.ingles[iTam] = cKey;
 
 							// Incrementamos el tamaño del array (num elem ocupados dentro del mismo)
 							iTam++;
@@ -372,13 +373,11 @@ tPalabra LeerNuevoElemento() {
 
 						// Validamos que tras la última inserción se haya llegado al final
 						if (iTam == (MAX_CAD - 1)) {
-
 							// Establecer el valor de la variable de entrada a fin de linea
 							cKey = EOL;
 
 							// Introducir el caracter en el array correspondiente
-							if (iBucle == 0) tpResultado.espanyol[iTam] = cKey;
-							else tpResultado.ingles[iTam] = cKey;
+							(iBucle == 0) ? tpResultado.espanyol[iTam] = cKey : tpResultado.ingles[iTam] = cKey;
 
 							// Cargar mensaje y Mosrar datos
 							MenuManager(ANYADIRPALABRA_SALIDA_MOSTRAR,
@@ -402,9 +401,7 @@ tPalabra LeerNuevoElemento() {
 
 	} while ((cKey != ESC) &&     // Salida por solicitud del usuario
 			 (iBucle < 2));		  // Salida por que se ha introducido el par de palabras de diccionario	
-
-			 //(cKey != ENTER) &&   // Salida por introducción de palabra ??
-			 
+		 
 	// Retorno de Datos
 	return tpResultado;
 }
@@ -489,11 +486,8 @@ int LeerPalabra(char strEntrada[], int iTamMax) {
 					// Validamos que tras la última inserción se haya llegado al final
 					if (iTam == (iTamMax - 1)) {
 
-						// Establecer el valor de la variable de entrada a fin de linea
-						cKey = EOL;
-
-						// Introducir el caracter en el array correspondiente
-						strEntrada[iTam] = cKey; 
+						// Asignación de valor de la variable de entrada a fin de linea y carga en el array correspondiente
+						strEntrada[iTam] = cKey = EOL;
 
 						// Establecemos el resultado de salida (Tamaño)
 						iReturn = iTam;
