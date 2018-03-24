@@ -48,7 +48,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 	case PRINCIPAL_ERROR:
 		// Cargar mensaje
 		printf("==============================================================================\n");
-		printf("= La opción seleccionada es incorrecta. Pulse una tecla para continuar...    =\n");
+		printf("= La opcion seleccionada es incorrecta. Pulse una tecla para continuar...    =\n");
 		printf("==============================================================================\n");
 
 		break;
@@ -56,18 +56,18 @@ void MenuManager(tMenuType pType, char pString[]) {
 		// Cargar mensaje
 		printf("==============================================================================\n");
 		printf("= Gracias por usar nuestra aplicacion. Vuelva pronto...                      =\n");
-		printf("= Pulse una tecla para salir...                                             =\n");
+		printf("= Pulse una tecla para salir...                                              =\n");
 		printf("==============================================================================\n");
 		break;
 	case ANYADIRPALABRA_ESPAÑOL: 
 		printf("==============================================================================\n");
 		printf(" Introduzca la nueva palabra en el Diccionario:                               \n");
 		printf("                                                                              \n");
-		printf("  Pulse Intro para Introducir opcion o Esc para salir...                      \n");
-		printf("  Pulse para salir...                                                         \n");
+		printf(" Pulse Intro para Introducir opcion o Esc para salir...                       \n");
+		printf(" Pulse para salir...                                                          \n");
 		printf("==============================================================================\n");
 		printf("                                                                              \n");
-		printf("  Palabra a traducir en Espanyol: \n");
+		printf("Palabra a traducir en Espanyol: \n");
 		
 		break;
 	case ANYADIRPALABRA_INGLES: 
@@ -78,7 +78,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 		printf(" Pulse para salir...                                                          \n");
 		printf("==============================================================================\n");
 		printf("                                                                              \n");
-		printf("Traducción de la palabra en Ingles: \n");
+		printf("Traduccion de la palabra en Ingles: \n");
 
 		break;
 	case ANYADIRPALABRA_SALIDA_MOSTRAR: 
@@ -90,7 +90,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 		break;
 	case ANYADIRPALABRA_SALIDA_MAXCAR_MOSTRAR: 
 		printf("==============================================================================\n");
-		printf("  Se ha llegado al número máximo de caracteres disponibles.                   \n");
+		printf("  Se ha llegado al numero maximo de caracteres disponibles.                   \n");
 		printf("  Se ha introducido la siguiente palabra: %s                                  \n", pString);
 		printf("  Pulse una tecla para continuar...                                           \n");
 		printf("==============================================================================\n");
@@ -98,7 +98,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 		break;
 	case ANYADIRPALABRA_SALIDA_CANCELAR: 		
 		printf("==============================================================================\n");
-		printf("= Acción cancelada por el usuario. Se retorna al menu principal.             =\n");
+		printf("= Accion cancelada por el usuario. Se retorna al menu principal.             =\n");
 		printf("= Pulse una tecla para continuar...                                          =\n");
 		printf("==============================================================================\n");
 
@@ -116,7 +116,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 		break;
 	case TRADUCIR_SALIDA_MOSTRAR_RESULTADO:
 		printf("==============================================================================\n");
-		printf("  La traducción es la siguiente palabra: %s                                   \n", pString);
+		printf("  La traduccion es la siguiente palabra: %s                                   \n", pString);
 		printf("  Pulse una tecla para continuar...                                           \n");
 		printf("==============================================================================\n");
 
@@ -130,7 +130,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 		break;
 	case TRADUCIR_SALIDA_CANCELAR:
 		printf("==============================================================================\n");
-		printf("= Acción cancelada por el usuario. Se retorna al menu principal.             =\n");
+		printf("= Accion cancelada por el usuario. Se retorna al menu principal.             =\n");
 		printf("= Pulse una tecla para continuar...                                          =\n");
 		printf("==============================================================================\n");
 
@@ -145,13 +145,13 @@ void MenuManager(tMenuType pType, char pString[]) {
 		// Bucle de impresión de resultados
 		// TODO
 		
-		printf("  Pulse una tecla para continuar...                                           \n");
+		printf(" Pulse una tecla para continuar...                                            \n");
 		printf("==============================================================================\n");
 
 		break;
 	case MOSTRAR_DICCIONARIO_VACIO:
 		printf("==============================================================================\n");
-		printf("= No existe ningún registro en el diccionario. Se retorna al menu principal. =\n");
+		printf("= No existe ningun registro en el diccionario. Se retorna al menu principal. =\n");
 		printf("= Pulse una tecla para continuar...                                          =\n");
 		printf("==============================================================================\n");
 
@@ -527,7 +527,7 @@ int BuscarElemento(tPalabra Dicc[], int tamDicc, char Palabra[]) {
 	for (int pos = 0; pos < tamDicc; pos++) {
 		
 		// Validación de cadenas
-		if (strcmp(Dicc[pos].espanyol, Palabra)) {
+		if (strcmp(Dicc[pos].espanyol, Palabra) == 0) {
 			iResult = pos;
 			break;
 		}
