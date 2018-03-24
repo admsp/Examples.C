@@ -98,13 +98,63 @@ void MenuManager(tMenuType pType, char pString[]) {
 		break;
 	case ANYADIRPALABRA_SALIDA_CANCELAR: 		
 		printf("==============================================================================\n");
-		printf("= No se ha introducido ninguna palabra. Se retorna al menu principal         =\n");
+		printf("= Acción cancelada por el usuario. Se retorna al menu principal.             =\n");
 		printf("= Pulse una tecla para continuar...                                          =\n");
 		printf("==============================================================================\n");
 
 		break;
-	case TRADUCIR:
-		// TODO: Mensaje a introducir en la traducción
+	case TRADUCIR_BUSCAR:
+		printf("==============================================================================\n");
+		printf(" Introduzca la palabra a buscar en el Diccionario                             \n");
+		printf("                                                                              \n");
+		printf(" Pulse Intro para Introducir opcion o Esc para salir...                       \n");
+		printf(" Pulse para salir...                                                          \n");
+		printf("==============================================================================\n");
+		printf("                                                                              \n");
+		printf("Palabra a buscar en el diccionario: \n");
+		
+		break;
+	case TRADUCIR_SALIDA_MOSTRAR_RESULTADO:
+		printf("==============================================================================\n");
+		printf("  La traducción es la siguiente palabra: %s                                   \n", pString);
+		printf("  Pulse una tecla para continuar...                                           \n");
+		printf("==============================================================================\n");
+
+		break;
+	case TRADUCIR_SALIDA_MOSTRAR_NO_ENCONTRADO:
+		printf("==============================================================================\n");
+		printf("= Palabra no encontrada en el diccionario. Se retorna al menu principal.     =\n");
+		printf("= Pulse una tecla para continuar...                                          =\n");
+		printf("==============================================================================\n");
+
+		break;
+	case TRADUCIR_SALIDA_CANCELAR:
+		printf("==============================================================================\n");
+		printf("= Acción cancelada por el usuario. Se retorna al menu principal.             =\n");
+		printf("= Pulse una tecla para continuar...                                          =\n");
+		printf("==============================================================================\n");
+
+		break;
+	case MOSTRAR_DICCIONARIO_RESULTADOS:
+		printf("==============================================================================\n");
+		printf("= Se han encontrado el siguiente conjunto de resultados:                      \n");
+		printf("                                                                              \n");
+		printf("             ESPANYOL                        INGLES                           \n");
+		printf("             ========                        ======                           \n");
+
+		// Bucle de impresión de resultados
+		// TODO
+		
+		printf("  Pulse una tecla para continuar...                                           \n");
+		printf("==============================================================================\n");
+
+		break;
+	case MOSTRAR_DICCIONARIO_VACIO:
+		printf("==============================================================================\n");
+		printf("= No existe ningún registro en el diccionario. Se retorna al menu principal. =\n");
+		printf("= Pulse una tecla para continuar...                                          =\n");
+		printf("==============================================================================\n");
+
 		break;
 	default: /*No tiene que ocurrir, incluir una gestión de excepciones*/ break;
 	}
@@ -143,7 +193,8 @@ int anyadir_palabra(tPalabra Diccionario[], int numpal) {
 			iResult = numpal; 
 		}
 		else { 
-			// TODO Proceso de inicialización del diccionario
+			// TODO Esto no debería ocurrir por lo que deberíamos incluir un 
+			// try and catch... (C++) u otro tipo de gestión de errores
 		}
 	}
 
@@ -155,10 +206,55 @@ int anyadir_palabra(tPalabra Diccionario[], int numpal) {
 // Descripcion: Metodo de negocio para la gestión de traducciones en el diccionario 
 void traducir_palabra(tPalabra Dicc[], int num) {
 	
-	// Modo prueba funciones auxiliares
-	char Palabra[MAX_CAD];
-	int prueba = LeerPalabra(Palabra, MAX_CAD);
+	// Declaración de variables de trabajo:
+	char stPalabra[MAX_CAD];
+	int iResultEntrada, iFound;
 
+	// Inicialización de Variables
+	iResultEntrada = -1;
+	iFound = -1;
+
+	// Carga de menú
+	MenuManager(TRADUCIR_BUSCAR, nullptr);
+
+	// Lanzamiento de lectura de palabras
+	iResultEntrada = LeerPalabra(stPalabra, MAX_CAD);
+
+	// Validar entrada recibida
+	if (iResultEntrada == -1) 
+		// Se ha recibido un ESC, mostrar mensaje de cancelación
+		MenuManager(TRADUCIR_BUSCAR, nullptr); 
+	
+	else { // Se ha leido una palabra
+	
+		// Se busca la palabra en el diccionario
+		iFound = BuscarElemento(Dicc, num, stPalabra);
+
+		// Validamos si se ha encontrado o no
+		if (iFound == -1) 
+			// No se ha encontrado. Mostramos mensaje informativo
+			MenuManager(TRADUCIR_SALIDA_MOSTRAR_NO_ENCONTRADO, nullptr);
+		else  
+			// Se ha encontrado. Mostrar palabra encontrada por pantalla
+			MenuManager(TRADUCIR_SALIDA_MOSTRAR_RESULTADO, Dicc[iFound].ingles);
+	}
+	
+	// Lectura de teclado y salida
+	_getch();
+}
+
+// Nombre: mostrar_diccionario
+// Descripcion: Metodo de negocio para la mostrar el contenido del diccionario
+void mostrar_diccionario(tPalabra Dicc[], int num) {
+
+	// Validar el número de elementos en el diccionario
+	if (num <= 0) 
+		MenuManager(MOSTRAR_DICCIONARIO_VACIO, nullptr);
+	else
+		MenuManager(MOSTRAR_DICCIONARIO_RESULTADOS, nullptr);
+
+	// Lectura de teclado y salida
+	_getch();
 }
 
 #pragma endregion 

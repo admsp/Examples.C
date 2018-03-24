@@ -31,7 +31,12 @@ enum eMenuType {
 	ANYADIRPALABRA_SALIDA_MOSTRAR,
 	ANYADIRPALABRA_SALIDA_MAXCAR_MOSTRAR,
 	ANYADIRPALABRA_SALIDA_CANCELAR,
-	TRADUCIR,
+	TRADUCIR_BUSCAR,
+	TRADUCIR_SALIDA_MOSTRAR_RESULTADO,
+	TRADUCIR_SALIDA_MOSTRAR_NO_ENCONTRADO,
+	TRADUCIR_SALIDA_CANCELAR,
+	MOSTRAR_DICCIONARIO_RESULTADOS,
+	MOSTRAR_DICCIONARIO_VACIO
 };
 
 // Tipo de negocio para el tratamiento de tipos de menús
@@ -63,5 +68,9 @@ int anyadir_palabra(tPalabra Diccionario[], int numpal);
 // Nombre: traducir_palabra
 // Descripcion: Metodo de negocio para la gestión de traducciones en el diccionario 
 void traducir_palabra(tPalabra Dicc[], int num);
+
+// Nombre: mostrar_diccionario
+// Descripcion: Metodo de negocio para la mostrar el contenido del diccionario
+void mostrar_diccionario(tPalabra Dicc[], int num);
 
 #pragma endregion 
