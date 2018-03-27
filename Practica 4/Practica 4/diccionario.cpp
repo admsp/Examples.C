@@ -40,7 +40,8 @@ void MenuManager(tMenuType pType, char pString[]) {
 			printf("=  1. Anyadir palabra                                                        =\n");
 			printf("=  2. Traducir palabra                                                       =\n");
 			printf("=  3. Mostrar diccionario                                                    =\n");
-			printf("=  4. Salir                                                                  =\n");
+			printf("=  4. Borrar elemento                                                        =\n");
+			printf("=  5. Salir                                                                  =\n");
 			printf("=                                                                            =\n");
 			printf("= Pulse una opcion o Esc para salir...                                       =\n");
 			printf("==============================================================================\n");
@@ -151,7 +152,12 @@ void MenuManager(tMenuType pType, char pString[]) {
 
 			break;
 		default: /* Nota: Este caso no debería ocurrir */ break;
-	
+		case BORRAR_ELEMENTO:
+			printf("==============================================================================\n");
+			printf("= A continuación podrá borrar la palabra que desee del diccionario           =\n");
+			printf("==============================================================================\n");
+
+			break;
 	}
 }
 
@@ -251,6 +257,30 @@ void mostrar_diccionario(tPalabra Dicc[], int num) {
 		PintarDiccionario(Dicc, num);
 	// Lectura de teclado y salida
 	_getch();
+}
+
+// Nombre: borrar_palabra
+// Descripcion: Metodo de negocio para el borrado de palabras dentro del dicccionario
+// Salida: -1 = No se ha borrado el elemento; > 0 = numero de elementos del array 
+int borrar_palabra(tPalabra Diccionario[], int num) {
+
+	// Declaración de Variables
+	int iResult = -1; 
+
+	// Validar numero de elementos
+	if (num <= 0) {
+		// TODO: Mostrar mensaje no hay elementos
+	}
+	else {
+		// TODO Declaración e inicialización de palabras
+		// TODO: Mostrar mensaje de selección de elementos
+		// TODO: _getch()
+		// TODO: BuscarElemento si existe lo borras y sino muestras un mensaje de que no existe y vuelves
+		//		 al menu
+	}
+
+	// Retorno de datos
+	return iResult;
 }
 
 #pragma endregion 
