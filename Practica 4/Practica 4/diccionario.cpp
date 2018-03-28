@@ -99,6 +99,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 
 			break;
 		case ANYADIRPALABRA_SALIDA_CANCELAR: 		
+		case BORRAR_ELEMTENTO_SALIDA_CANCELAR:
 			printf("==============================================================================\n");
 			printf("= Accion cancelada por el usuario. Se retorna al menu principal.             =\n");
 			printf("= Pulse una tecla para continuar...                                          =\n");
@@ -124,6 +125,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 
 			break;
 		case TRADUCIR_SALIDA_MOSTRAR_NO_ENCONTRADO:
+		case BORRAR_ELEMENTO_SALIDA_NO_ENCONTRADO:
 			printf("==============================================================================\n");
 			printf("= Palabra no encontrada en el diccionario. Se retorna al menu principal.     =\n");
 			printf("= Pulse una tecla para continuar...                                          =\n");
@@ -131,6 +133,7 @@ void MenuManager(tMenuType pType, char pString[]) {
 
 			break;
 		case TRADUCIR_SALIDA_PALABRA_VACIA:
+		case BORRAR_ELEMTENTO_SALIDA_PALABRA_VACIA:
 			printf("==============================================================================\n");
 			printf("= No se ha introducido ninguna palabra. Se retorna al menu principal.        =\n");
 			printf("= Pulse una tecla para continuar...                                          =\n");
@@ -145,15 +148,28 @@ void MenuManager(tMenuType pType, char pString[]) {
 
 			break;
 		case MOSTRAR_DICCIONARIO_VACIO:
+		case BORRAR_ELEMENTO_SALIDA_DICCIONARIO_VACIO:
 			printf("==============================================================================\n");
 			printf("= No existe ningun registro en el diccionario. Se retorna al menu principal. =\n");
 			printf("= Pulse una tecla para continuar...                                          =\n");
 			printf("==============================================================================\n");
 
 			break;
-		case BORRAR_ELEMENTO:
+		case BORRAR_ELEMENTO_BUSCAR_ELEMENTO:
 			printf("==============================================================================\n");
-			printf("= A continuación podrá borrar la palabra que desee del diccionario           =\n");
+			printf(" Introduzca la palabra a borrar del Diccionario                               \n");
+			printf("                                                                              \n");
+			printf(" Pulse Intro para Introducir opcion o Esc para salir...                       \n");
+			printf(" Pulse para salir...                                                          \n");
+			printf("==============================================================================\n");
+			printf("                                                                              \n");
+			printf("Palabra a borrar del diccionario: \n");
+
+			break;
+		case BORRAR_ELEMENTO_SALIDA_ENCONTRADO:
+			printf("==============================================================================\n");
+			printf("  Acción de borrado realizada correctamente.                                  \n");
+			printf("  Pulse una tecla para continuar...                                           \n");
 			printf("==============================================================================\n");
 
 			break;
@@ -295,7 +311,24 @@ int borrar_palabra(tPalabra Dicc[], int num) {
 				if (iResult != -1) { // Caso 1: Existe: 
 
 					// a. Borrado
-					// TODO: Borrar elemento
+					
+					// Nota: Dado que el tamaño máximo del array es constante, no tenemos que hacer un 
+					//		 realloc del mismo sino simplemente mover todos los elementos existentes y
+					//		 asignar al último elemento anterior el valor null o nullptr para los arrays
+					//		 contenidos en la estructura palabra.
+
+					// Movemos todos los elementos existentes a la posición inmediatament anterior
+					// a partir de la posición del array
+					for (int iPosElem = iResult; iPosElem <= num; iPosElem++) 
+						Dicc[iPosElem] = Dicc[iPosElem + 1];
+
+					// Asignamos al anterior último elemento existente un elemento tPalabra vacio
+					tPalabra tUltElem; 
+					tUltElem.espanyol[0] = tUltElem.ingles[0] = EOL;
+					Dicc[num - 1] = tUltElem;
+
+					// Actualizamos el número de elementos y el resultado a devolver
+					iResult = num--;
 
 					// b. Mostrar mensaje indicando que el elemento Existe y se ha borrado
 					MenuManager(BORRAR_ELEMENTO_SALIDA_ENCONTRADO, nullptr);
@@ -308,7 +341,6 @@ int borrar_palabra(tPalabra Dicc[], int num) {
 		}
 		else // No se ha encontrado nada -> Mostrar mensaje indicando que el usuario desea salir (ESC)
 			MenuManager(BORRAR_ELEMTENTO_SALIDA_CANCELAR, nullptr);
-
 	}
 
 	// Leemos la tecla pulsada y volvemos al menú anterior.
