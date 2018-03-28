@@ -292,6 +292,9 @@ int borrar_palabra(tPalabra Dicc[], int num) {
 		// Declaración e inicialización de palabras
 		char stPalabra[MAX_CAD];
 		
+		// Mostrar mensaje no hay elementos
+		MenuManager(BORRAR_ELEMENTO_BUSCAR_ELEMENTO, nullptr);
+
 		// Lanzamiento de lectura de palabra
 		iResult = LeerPalabra(stPalabra, MAX_CAD);
 
@@ -336,8 +339,12 @@ int borrar_palabra(tPalabra Dicc[], int num) {
 				else // Caso 2: No Existe -> Mostrar mensaje indicando que el elemento No Existe
 					MenuManager(BORRAR_ELEMENTO_SALIDA_NO_ENCONTRADO, nullptr);
 			}
-			else // Palabra vacia -> Mostrar mensaje indicando que no se ha introducido ninguna palabra
+			else { // Palabra vacia -> Mostrar mensaje indicando que no se ha introducido ninguna palabra
 				MenuManager(BORRAR_ELEMTENTO_SALIDA_PALABRA_VACIA, nullptr);
+
+				// Actualizar retorno de datos
+				iResult = -1;
+			}
 		}
 		else // No se ha encontrado nada -> Mostrar mensaje indicando que el usuario desea salir (ESC)
 			MenuManager(BORRAR_ELEMTENTO_SALIDA_CANCELAR, nullptr);
@@ -445,7 +452,7 @@ tPalabra LeerNuevoElemento() {
 							tamaño máximo de cadena MAX_CAD */
 
 					// Validar que caracteres se han introducido 
-					if ((cKey >= 'A' || cKey <= 'Z') || (cKey >= 'a' || cKey <= 'z')) {
+					if ((cKey >= 'A' && cKey <= 'Z') || (cKey >= 'a' && cKey <= 'z')) {
 
 						// Validamos que no hayamos llegado al fin del array
 						/* Nota: Se puede usar indistintamente iTam y strlen(tpResultado.idioma que corresponda) */
@@ -558,7 +565,7 @@ int LeerPalabra(char strEntrada[], int iTamMax) {
 				break;
 			default:
 				// Validar que caracteres se han introducido 
-				if ((cKey >= 'A' || cKey <= 'Z') || (cKey >= 'a' || cKey <= 'z')) {
+				if ((cKey >= 'A' && cKey <= 'Z') || (cKey >= 'a' && cKey <= 'z')) {
 
 					// Validamos que no hayamos llegado al fin del array
 					/* Nota: Se puede usar indistintamente iTam y strlen(tpResultado.idioma que corresponda) */
@@ -649,4 +656,3 @@ void PintarDiccionario(tPalabra Dicc[], int num) {
 }
 
 #pragma endregion 
-
