@@ -319,7 +319,7 @@ int borrar_palabra(tPalabra Dicc[], int num) {
 
 					// Movemos todos los elementos existentes a la posición inmediatament anterior
 					// a partir de la posición del array
-					for (int iPosElem = iResult; iPosElem <= num; iPosElem++) 
+					for (int iPosElem = iResult; iPosElem < num; iPosElem++) 
 						Dicc[iPosElem] = Dicc[iPosElem + 1];
 
 					// Asignamos al anterior último elemento existente un elemento tPalabra vacio
