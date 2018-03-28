@@ -151,13 +151,13 @@ void MenuManager(tMenuType pType, char pString[]) {
 			printf("==============================================================================\n");
 
 			break;
-		default: /* Nota: Este caso no debería ocurrir */ break;
 		case BORRAR_ELEMENTO:
 			printf("==============================================================================\n");
 			printf("= A continuación podrá borrar la palabra que desee del diccionario           =\n");
 			printf("==============================================================================\n");
 
 			break;
+		default: /* Nota: Este caso no debería ocurrir */ break;
 	}
 }
 
@@ -262,22 +262,57 @@ void mostrar_diccionario(tPalabra Dicc[], int num) {
 // Nombre: borrar_palabra
 // Descripcion: Metodo de negocio para el borrado de palabras dentro del dicccionario
 // Salida: -1 = No se ha borrado el elemento; > 0 = numero de elementos del array 
-int borrar_palabra(tPalabra Diccionario[], int num) {
+int borrar_palabra(tPalabra Dicc[], int num) {
 
 	// Declaración de Variables
 	int iResult = -1; 
 
 	// Validar numero de elementos
 	if (num <= 0) {
-		// TODO: Mostrar mensaje no hay elementos
+		// Mostrar mensaje no hay elementos
+		MenuManager(BORRAR_ELEMENTO_SALIDA_DICCIONARIO_VACIO, nullptr);
 	}
 	else {
-		// TODO Declaración e inicialización de palabras
-		// TODO: Mostrar mensaje de selección de elementos
-		// TODO: _getch()
-		// TODO: BuscarElemento si existe lo borras y sino muestras un mensaje de que no existe y vuelves
-		//		 al menu
+		// Declaración e inicialización de palabras
+		char stPalabra[MAX_CAD];
+		
+		// Lanzamiento de lectura de palabra
+		iResult = LeerPalabra(stPalabra, MAX_CAD);
+
+		// Validar Resultado de Lectura
+		if (iResult != -1) { // Se ha introducido alguna palabra
+		
+			// Validar el tamaño de la palabra: 
+			if (iResult > 0) { // Palabra no vacia
+
+				// BuscarElemento: 
+				// 1. Existe: Se borra y muestra mensaje informativo
+				// 2. No Existe Muestras un mensaje de que no existe 
+				// Por ultimo se retorna al menú principal
+				iResult = BuscarElemento(Dicc, num, stPalabra);
+
+				// Validar Búsqueda realizada
+				if (iResult != -1) { // Caso 1: Existe: 
+
+					// a. Borrado
+					// TODO: Borrar elemento
+
+					// b. Mostrar mensaje indicando que el elemento Existe y se ha borrado
+					MenuManager(BORRAR_ELEMENTO_SALIDA_ENCONTRADO, nullptr);
+				}
+				else // Caso 2: No Existe -> Mostrar mensaje indicando que el elemento No Existe
+					MenuManager(BORRAR_ELEMENTO_SALIDA_NO_ENCONTRADO, nullptr);
+			}
+			else // Palabra vacia -> Mostrar mensaje indicando que no se ha introducido ninguna palabra
+				MenuManager(BORRAR_ELEMTENTO_SALIDA_PALABRA_VACIA, nullptr);
+		}
+		else // No se ha encontrado nada -> Mostrar mensaje indicando que el usuario desea salir (ESC)
+			MenuManager(BORRAR_ELEMTENTO_SALIDA_CANCELAR, nullptr);
+
 	}
+
+	// Leemos la tecla pulsada y volvemos al menú anterior.
+	_getch();
 
 	// Retorno de datos
 	return iResult;
