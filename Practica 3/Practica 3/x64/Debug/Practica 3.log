@@ -1,0 +1,5 @@
+﻿  stdafx.cpp
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 3\practica 3\stdafx.cpp(35): warning C4065: la instrucción switch contiene etiquetas 'default' pero no etiquetas 'case'
+  Practica 3.cpp
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 3\practica 3\practica 3.cpp(28): warning C4101: 'Option': variable local sin referencia
+c:\users\amdiaz\documents\codigo\c++\projects\practicas toño\practica 3\practica 3\practica 3.cpp(42): error C4700: se utilizó la variable local 'iResult' sin inicializar
