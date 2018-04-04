@@ -8,6 +8,7 @@
 
 // Librerías base de aplicación
 #include "Menu.h"
+#include "Funciones.h"
 
 // Librerias de Tratamiento de funciones matematicas
 #include <math.h>
